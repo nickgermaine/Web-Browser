@@ -36,12 +36,27 @@ QTabBar::tab {
     padding:10px;
     border:none;
     background:transparent;
+    padding-left:20px;
+    padding-right:10px;
+}
+
+QTabBar::tab QPushButton {
+    border:initial;
+    background:initial;
+    padding:initial;
+    transition:background .5s;
 }
 
 QTabBar::tab:selected {
     border-left:1px solid #ddd;
     border-right:1px solid #ddd;
     background:#fff;
+    padding-left:10px;
+
+}
+
+QTabBar::tab:!selected {
+    padding-left:10px;
 }
 
 QWidget#toolbar {
@@ -68,6 +83,7 @@ QTabBar::tab {
     font-weight:400;
     color:#666;
     width:200px;
+    padding-left:0px;
 }
 
 #TabBar::close-button {

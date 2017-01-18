@@ -1,10 +1,14 @@
 import sys
+import os
 import simplejson as json
+import requests
+from io import BytesIO
+from PIL import Image
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout,
                             QPushButton, QLabel, QLineEdit, QTabWidget, QTabBar,
                              QStackedLayout, QToolBar, QAction, QMainWindow, QDesktopWidget, QFrame, QGraphicsDropShadowEffect, QShortcut,
                              QKeySequenceEdit)
-from PyQt5.QtGui import QIcon, QColor, QKeySequence, QWindow
+from PyQt5.QtGui import QIcon, QColor, QKeySequence, QWindow, QPainter, QPixmap, QImage, QImageReader
 from PyQt5.QtCore import *
 from PyQt5.QtNetwork import QNetworkProxyFactory, QNetworkRequest
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
@@ -15,6 +19,13 @@ import ctypes
 myappid = 'rapidware.eden.browser.1' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
+
+class AddressBar(QLineEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def mousePressEvent(self, e):
+        self.selectAll()
 
 class App(QFrame):
     def __init__(self):
@@ -29,21 +40,31 @@ class App(QFrame):
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setWindowIcon(QIcon('resources/icons/icon.png'))
 
+
+        # Settings
+        self.SearchProvider = "https://www.google.ca/?gfe_rd=cr&ei=rnd_WPvfEqnM8AeSk4Ng#q="
+
     def CreateWindow(self):
 
         # Main window layout
         self.layout = QVBoxLayout()
         self.setObjectName("BrowserWindow")
 
-
-
         # No margins around our main content
         self.layout.setSpacing(0)
         self.layout.setContentsMargins(0,0,0,0)
 
         # Shortcuts
-        self.shortcut = QShortcut(QKeySequence("Ctrl+T"), self)
-        self.shortcut.activated.connect(self.AddTab)
+        # NEw tab
+        self.shortcutNewTab = QShortcut(QKeySequence("Ctrl+T"), self)
+        self.shortcutNewTab.activated.connect(self.AddTab)
+
+        # Refresh
+        self.shortcutRefresh = QShortcut(QKeySequence("Ctrl+R"), self)
+        self.shortcutRefresh.activated.connect(self.refresh)
+
+        self.shortcutRefresh2 = QShortcut(QKeySequence("F5"), self)
+        self.shortcutRefresh2.activated.connect(self.refresh)
 
         self.tabCount = 0
 
@@ -52,6 +73,7 @@ class App(QFrame):
         self.tabbar.setObjectName("TabBar")
         self.tabbar.setExpanding(False)
         self.tabbar.setDrawBase(False)
+        self.tabbar.setElideMode(Qt.ElideRight)
 
         self.windowBorder = QWidget()
         self.windowBorderLayout = QHBoxLayout()
@@ -105,18 +127,29 @@ class App(QFrame):
         self.BackButton = QPushButton()
         self.back = QIcon("resources/icons/ic_keyboard_arrow_left_black_24px.svg")
         self.BackButton.setIcon(self.back)
+        self.BackButton.setEnabled(False)
+        self.BackButton.clicked.connect(self.goBack)
 
         # Add Forward Button
         self.ForwardButton = QPushButton()
         self.forward = QIcon("resources/icons/ic_keyboard_arrow_right_black_24px.svg")
         self.ForwardButton.setIcon(self.forward)
+        self.ForwardButton.setEnabled(False)
+        self.ForwardButton.clicked.connect(self.goForward)
+
+        # Add Refresh Button
+        self.RefreshButton = QPushButton()
+        self.refreshIcon = QIcon("resources/icons/ic_refresh_black_24px.svg")
+        self.RefreshButton.setIcon(self.refreshIcon)
+        self.RefreshButton.clicked.connect(self.refresh)
+
 
         # Add Menu Button
         self.MenuButton = QPushButton()
         self.MenuButton.setIcon(QIcon("resources/icons/ic_more_vert_black_24px.svg"))
 
         # Create address bar.  Rig it to BrowseTo so we can actually load the sites
-        self.AddressBar = QLineEdit()
+        self.AddressBar = AddressBar()
         self.AddressBar.returnPressed.connect(self.BrowseTo)
 
         # This is teh main control bar
@@ -127,6 +160,7 @@ class App(QFrame):
         # Fill the control bar
         self.tabControls.addWidget(self.BackButton)
         self.tabControls.addWidget(self.ForwardButton)
+        self.tabControls.addWidget(self.RefreshButton)
         self.tabControls.addWidget(self.AddressBar)
         self.tabControls.addWidget(self.AddTabButton)
         self.tabControls.addWidget(self.MenuButton)
@@ -189,8 +223,10 @@ class App(QFrame):
         self.container.layout.addWidget(self.tabs[i])
 
         # When the URL changes, set the address bar accordingly
-        self.tabs[i].content.urlChanged.connect(self.SetAddressBar)
+        self.tabs[i].content.urlChanged.connect(lambda: self.SetAddressBar(i))
         self.tabs[i].content.titleChanged.connect(lambda: self.setTabTitle(i))
+        self.tabs[i].history = []
+
 
         # Remove outer margins
         self.tabs[i].layout.setContentsMargins(0,0,0,0)
@@ -209,19 +245,55 @@ class App(QFrame):
         # Set the current tab to the container stacked widget.
         # container = current tab (from our tab list) []
         self.container.layout.setCurrentWidget(self.tabs[i])
+        self.SetAddressBar(i)
 
-    def SetAddressBar(self):
-        # Get the current tabs index, and set the address bar to its title.toString()
+    def goBack(self):
         i = self.tabbar.currentIndex()
+        self.tabs[i].content.back()
+        self.ForwardButton.setEnabled(True)
+
+    def goForward(self):
+        i = self.tabbar.currentIndex()
+        self.tabs[i].content.forward()
+
+    def refresh(self):
+        i = self.tabbar.currentIndex()
+        self.tabs[i].content.reload()
+
+    def SetAddressBar(self, i):
+        # Get the current tabs index, and set the address bar to its title.toString()
+
         url = QUrl(self.tabs[i].content.url()).toString()
         self.AddressBar.setText(url)
+
+
+        icon_url = "http://" + QUrl(url).host() + "/favicon.ico"
+        r = requests.get(icon_url)
+        if not r:
+            icon_url = "http://" + QUrl(url).host() + "/favicon.png"
+            r = requests.get(icon_url)
+
+        im = QByteArray(r.content)
+
+        if "Not Found" not in str(r.content):
+            image = QImage.fromData(im)
+            self.tabbar.setTabIcon(i, QIcon(QPixmap.fromImage(image)))
+        else:
+            self.tabbar.setTabIcon(i, QIcon('resources/icons/ic_insert_drive_file_black_24px.svg'))
+
+        if len(self.tabs[i].history):
+            self.BackButton.setEnabled(True)
+        self.tabs[i].history.append(url)
 
     def BrowseTo(self):
         # Get url from address bar
         url = self.AddressBar.text()
 
+        if " " in url:
+            url = self.SearchProvider + url
+
         # Format correctly because were all lazy
-        if "http" not in url:
+        elif "http" not in url:
             FormattedUrl = "http://"
             OldUrl = url
             url = FormattedUrl + OldUrl
@@ -233,8 +305,15 @@ class App(QFrame):
     def setTabTitle(self, i):
         # Get current tabs webviews title, and set the actual tab item
         # on the tabbar to the correct title
-        title = self.tabs[i].content.title()
-        self.tabbar.setTabText(i, title)
+        if i == self.tabbar.currentIndex():
+            title = self.tabs[i].content.title()
+            self.tabbar.setTabText(i, title)
+
+
+    def getFavicon(self, i):
+        url = self.tabs[i].content.url().toString()
+        faviconUrl = "http://www.google.com/s2/favicons?domain=" + url
+        return faviconUrl
 
         # center
 
@@ -249,7 +328,6 @@ class App(QFrame):
 
     def mouseMoveEvent(self, event):
         delta = QPoint(event.globalPos() - self.oldPos)
-        # print(delta)
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPos()
 
@@ -268,7 +346,7 @@ class App(QFrame):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    with open("material.css", "r") as style:
+    with open("resources/stylesheets/material.css", "r") as style:
         app.setStyleSheet(style.read())
 
     window = App()
