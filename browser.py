@@ -10,10 +10,16 @@ from PyQt5.QtNetwork import QNetworkProxyFactory, QNetworkRequest
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
 from PyQt5.QtWinExtras import QWinTaskbarButton
 
+
+import ctypes
+myappid = 'rapidware.eden.browser.1' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
+
 class App(QFrame):
     def __init__(self):
         super().__init__()
-        self.title = "Web Browser"
+        self.title = "Eden Browser"
         self.CreateWindow()
 
         # Set some default properties for the window
@@ -21,6 +27,7 @@ class App(QFrame):
         self.setBaseSize(1366, 768)
         self.setMinimumSize(1366, 768)
         self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setWindowIcon(QIcon('resources/icons/icon.png'))
 
     def CreateWindow(self):
 
@@ -142,7 +149,7 @@ class App(QFrame):
         self.AddTab()
 
         # Show the window
-        self.showMaximized()
+        # self.showMaximized()
 
         # Show in windowed mode:
         # self.show()
@@ -265,7 +272,5 @@ if __name__ == "__main__":
 
     window = App()
     window.show()
-
-
 
     sys.exit(app.exec())
