@@ -38,7 +38,7 @@ class App(QFrame):
 
 
         # No margins around our main content
-        self.layout.setSpacing(2)
+        self.layout.setSpacing(0)
         self.layout.setContentsMargins(0,0,0,0)
 
         # Shortcuts
@@ -131,6 +131,7 @@ class App(QFrame):
         self.tabControls.addWidget(self.AddTabButton)
         self.tabControls.addWidget(self.MenuButton)
         self.tabControlWidget.setLayout(self.tabControls)
+        self.tabControlWidget.setObjectName("TabControls")
 
         # Create container that will hold the webviews:
         self.container = QWidget()

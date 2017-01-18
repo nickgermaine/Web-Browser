@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 QPushButton {
     border:none;
     background:transparent;
@@ -14,12 +20,15 @@ QLineEdit {
     padding:10px;
     border-radius:3px;
     box-shadow:0px 2px 5px rgba(0,0,0,.4);
+    font-size:14px;
+    color:#666;
 
 }
 
 QTabBar {
     background:transparent;
     border:none !important;
+    border-bottom:2px solid #eee;
 
 }
 
@@ -37,7 +46,7 @@ QTabBar::tab:selected {
 
 QWidget#toolbar {
     background:#fff;
-    border-bottom:2px solid rgba(0,0,0,.1);
+    border-bottom:0px solid rgba(0,0,0,.1);
     border-top:none;
 }
 
@@ -55,7 +64,9 @@ QTabBar::tab {
     margin:0px;
     padding:10px;
     text-align:left !important;
-
+    font-size:14px;
+    font-weight:400;
+    color:#666;
     width:200px;
 }
 
@@ -68,4 +79,10 @@ QTabBar::tab {
     padding-left:-20px;
 
 
+}
+
+QWidget#TabControls {
+    border-bottom:2px solid #eee;
+    background:#fff;
+    padding-bottom:15px;
 }
