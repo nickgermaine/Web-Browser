@@ -2,16 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fa5f922-8cb7-4455-bd86-b891b600af9d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/tabs.iml" afterPath="$PROJECT_DIR$/.idea/tabs.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tabs.py" afterPath="$PROJECT_DIR$/tabs.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/addtab.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/browser.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/close.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/menu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/screenshots/browser-screen1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/material.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_account_circle_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_add_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_add_box_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_add_circle_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_add_circle_outline_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_apps_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_aspect_ratio_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_bookmark_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_bookmark_border_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_check_box_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_check_box_outline_blank_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_clear_all_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_clear_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_close_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_crop_din_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_dehaze_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_delete_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_done_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_extension_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_fullscreen_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_highlight_off_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_keyboard_arrow_left_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_keyboard_arrow_right_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_more_vert_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_remove_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_share_black_24px.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icons/ic_web_asset_black_24px.svg" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/back.png" afterPath="$PROJECT_DIR$/resources/icons/back.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/forward.png" afterPath="$PROJECT_DIR$/resources/icons/forward.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tabs.py" afterPath="$PROJECT_DIR$/browser.py" />
     </list>
     <ignored path="tabs.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
+    <ignored path=".idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +54,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/browser$tabs.coverage" NAME="tabs Coverage Results" MODIFIED="1484684021974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/browser$tabs.coverage" NAME="tabs Coverage Results" MODIFIED="1484702730124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/tabs$tabs.coverage" NAME="tabs Coverage Results" MODIFIED="1484674512684" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -32,14 +66,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="tabs.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tabs.py">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="85">
+              <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -50,6 +82,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -59,7 +92,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/material.css" />
         <option value="$PROJECT_DIR$/tabs.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -70,8 +105,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="364" />
-    <option name="y" value="29" />
+    <option name="x" value="93" />
+    <option name="y" value="43" />
     <option name="width" value="1419" />
     <option name="height" value="836" />
   </component>
@@ -108,6 +143,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="browser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="browser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -116,9 +161,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nickg\Documents\Projects\browser\resources\icons" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.tabs">
     <configuration default="false" name="tabs" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -370,16 +422,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="364" y="29" width="1419" height="836" extended-state="0" />
-    <editor active="true" />
+    <frame x="93" y="43" width="1419" height="836" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2111847" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32859176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32859176" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32859176" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -413,19 +465,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tabs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/material.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/browser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tabs.py">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+          <folding />
         </state>
       </provider>
     </entry>

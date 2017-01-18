@@ -1,0 +1,71 @@
+QPushButton {
+    border:none;
+    background:transparent;
+    padding:10px;
+    transition:background .5s;
+}
+
+QPushButton:hover {
+    background:rgba(0,0,0,.05);
+}
+
+QLineEdit {
+    background: rgba(0,0,0,.05);
+    padding:10px;
+    border-radius:3px;
+    box-shadow:0px 2px 5px rgba(0,0,0,.4);
+
+}
+
+QTabBar {
+    background:transparent;
+    border:none !important;
+
+}
+
+QTabBar::tab {
+    padding:10px;
+    border:none;
+    background:transparent;
+}
+
+QTabBar::tab:selected {
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    background:#fff;
+}
+
+QWidget#toolbar {
+    background:#fff;
+    border-bottom:2px solid rgba(0,0,0,.1);
+    border-top:none;
+}
+
+#BrowserWindow {
+    border: 1px solid #888 !important;
+    box-shadow:0px 0px 20px rgba(0,0,0,.2);
+}
+
+QWebEngineView, #TabView {
+    height:900px;
+}
+
+QTabBar::tab {
+    border: none !important;
+    margin:0px;
+    padding:10px;
+    text-align:left !important;
+
+    width:200px;
+}
+
+#TabBar::close-button {
+
+    border-image: url('resources/icons/ic_clear_black_24px.svg') 0 0 0 0 stretch stretch;
+    height: 15px;
+    width:15px;
+    padding:10px;
+    padding-left:-20px;
+
+
+}

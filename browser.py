@@ -1,14 +1,16 @@
 import sys
+import simplejson as json
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout,
                             QPushButton, QLabel, QLineEdit, QTabWidget, QTabBar,
-                             QStackedLayout, QToolBar, QAction)
-from PyQt5.QtGui import QIcon
+                             QStackedLayout, QToolBar, QAction, QMainWindow, QDesktopWidget, QFrame, QGraphicsDropShadowEffect, QShortcut,
+                             QKeySequenceEdit)
+from PyQt5.QtGui import QIcon, QColor, QKeySequence, QWindow
 from PyQt5.QtCore import *
 from PyQt5.QtNetwork import QNetworkProxyFactory, QNetworkRequest
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
+from PyQt5.QtWinExtras import QWinTaskbarButton
 
-
-class App(QWidget):
+class App(QFrame):
     def __init__(self):
         super().__init__()
         self.title = "Web Browser"
@@ -17,41 +19,94 @@ class App(QWidget):
         # Set some default properties for the window
         self.setWindowTitle(self.title)
         self.setBaseSize(1366, 768)
-        self.setMinimumSize(800, 540)
-
+        self.setMinimumSize(1366, 768)
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
     def CreateWindow(self):
+
         # Main window layout
         self.layout = QVBoxLayout()
+        self.setObjectName("BrowserWindow")
+
+
 
         # No margins around our main content
-        self.layout.setSpacing(0)
+        self.layout.setSpacing(2)
         self.layout.setContentsMargins(0,0,0,0)
+
+        # Shortcuts
+        self.shortcut = QShortcut(QKeySequence("Ctrl+T"), self)
+        self.shortcut.activated.connect(self.AddTab)
+
         self.tabCount = 0
 
         # Create TabBar, movable and closable
         self.tabbar = QTabBar(movable=True, tabsClosable=True)
+        self.tabbar.setObjectName("TabBar")
+        self.tabbar.setExpanding(False)
+        self.tabbar.setDrawBase(False)
+
+        self.windowBorder = QWidget()
+        self.windowBorderLayout = QHBoxLayout()
+        self.windowBorder.setLayout(self.windowBorderLayout)
+
+        # Close button
+        self.CloseBrowserButton = QPushButton()
+        self.CloseBrowserButton.setIcon(QIcon('resources/icons/ic_clear_black_24px.svg'))
+        self.CloseBrowserButton.setFixedWidth(48)
+
+        # Maximize Button
+        self.MaximizeBrowserButton = QPushButton()
+        self.MaximizeBrowserButton.setIcon(QIcon('resources/icons/ic_aspect_ratio_black_24px.svg'))
+        self.MaximizeBrowserButton.setFixedWidth(48)
+
+        # Minimize button
+        self.MinimizeBrowserButton = QPushButton()
+        self.MinimizeBrowserButton.setIcon(QIcon('resources/icons/ic_remove_black_24px.svg'))
+        self.MinimizeBrowserButton.setFixedWidth(48)
+
+        self.MinimizeBrowserButton.clicked.connect(self.min)
+        self.MaximizeBrowserButton.clicked.connect(self.maximize)
+        self.CloseBrowserButton.clicked.connect(self.quit)
+
+        self.windowBorderLayout.addWidget(self.tabbar)
+
+        # So that we can drag the window on non-tab areas
+        self.windowBorderLayout.addStretch()
+
+        # Add Window controls
+        self.windowBorderLayout.addWidget(self.MinimizeBrowserButton)
+        self.windowBorderLayout.addWidget(self.MaximizeBrowserButton)
+        self.windowBorderLayout.addWidget(self.CloseBrowserButton)
+        self.windowBorderLayout.setSpacing(0)
+        self.windowBorderLayout.setContentsMargins(0, 0, 0, 0)
 
         # Hook into essential events
         self.tabbar.tabBarClicked.connect(self.SwitchTabs)
         self.tabbar.tabCloseRequested.connect(self.CloseTab)
 
+
         # Create list to house each tabs widget in
         self.tabs = []
 
         # Create New Tab
-        self.AddTabButton = QPushButton("+")
+        self.AddTabButton = QPushButton()
+        self.AddTabButton.setIcon(QIcon("resources/icons/ic_add_black_24px.svg"))
         self.AddTabButton.clicked.connect(self.AddTab)
 
         # Add Back Button
         self.BackButton = QPushButton()
-        self.back = QIcon("back.png")
+        self.back = QIcon("resources/icons/ic_keyboard_arrow_left_black_24px.svg")
         self.BackButton.setIcon(self.back)
 
         # Add Forward Button
         self.ForwardButton = QPushButton()
-        self.forward = QIcon("forward.png")
+        self.forward = QIcon("resources/icons/ic_keyboard_arrow_right_black_24px.svg")
         self.ForwardButton.setIcon(self.forward)
+
+        # Add Menu Button
+        self.MenuButton = QPushButton()
+        self.MenuButton.setIcon(QIcon("resources/icons/ic_more_vert_black_24px.svg"))
 
         # Create address bar.  Rig it to BrowseTo so we can actually load the sites
         self.AddressBar = QLineEdit()
@@ -60,12 +115,14 @@ class App(QWidget):
         # This is teh main control bar
         self.tabControlWidget = QWidget()
         self.tabControls = QHBoxLayout()
+        self.tabControlWidget.setObjectName("toolbar")
 
         # Fill the control bar
         self.tabControls.addWidget(self.BackButton)
         self.tabControls.addWidget(self.ForwardButton)
         self.tabControls.addWidget(self.AddressBar)
         self.tabControls.addWidget(self.AddTabButton)
+        self.tabControls.addWidget(self.MenuButton)
         self.tabControlWidget.setLayout(self.tabControls)
 
         # Create container that will hold the webviews:
@@ -74,10 +131,9 @@ class App(QWidget):
         self.container.setLayout(self.container.layout)
 
         # Set the main window structure
-        self.layout.addWidget(self.tabbar)
+        self.layout.addWidget(self.windowBorder)
         self.layout.addWidget(self.tabControlWidget)
         self.layout.addWidget(self.container)
-        self.layout.addStretch(0)
 
         # Set main windows layout = our top level QVBOX
         self.setLayout(self.layout)
@@ -86,7 +142,10 @@ class App(QWidget):
         self.AddTab()
 
         # Show the window
-        self.show()
+        self.showMaximized()
+
+        # Show in windowed mode:
+        # self.show()
 
 
     def CloseTab(self, i):
@@ -107,7 +166,7 @@ class App(QWidget):
 
         # Set the tabs VBOx layout
         self.tabs[i].layout = QVBoxLayout()
-        self.tabs[i].layout.addStretch(1)
+        self.tabs[i].layout.setObjectName("TabView")
 
         # Create webview of our tab
         self.tabs[i].content = QWebEngineView()
@@ -169,7 +228,44 @@ class App(QWidget):
         title = self.tabs[i].content.title()
         self.tabbar.setTabText(i, title)
 
+        # center
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def mousePressEvent(self, event):
+        self.oldPos = event.globalPos()
+
+    def mouseMoveEvent(self, event):
+        delta = QPoint(event.globalPos() - self.oldPos)
+        # print(delta)
+        self.move(self.x() + delta.x(), self.y() + delta.y())
+        self.oldPos = event.globalPos()
+
+    def quit(self):
+        self.destroy()
+
+    def maximize(self):
+        if self.isMaximized():
+            self.showNormal()
+        else:
+            self.showMaximized()
+
+    def min(self):
+        self.showMinimized()
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
+    with open("material.css", "r") as style:
+        app.setStyleSheet(style.read())
+
     window = App()
+    window.show()
+
+
+
     sys.exit(app.exec())
